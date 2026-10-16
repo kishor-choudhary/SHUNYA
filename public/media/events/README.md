@@ -5,10 +5,11 @@ Drop the real event photography here, then reference it from the studio
 
     /media/events/your-file.jpg
 
-Everything currently in `public/media/` (including the graded crops used on the
-chapter panels and the hero loop) is **development placeholder material**
-generated for the build, and the website labels it as such. Replace it before
-launch.
+Everything currently in `public/media` is **development placeholder material**
+generated for the build (`node scripts/generate-media.mjs`), and the website
+labels it as such — with one exception: `hero-sunset.jpg` and
+`hero-sunset-portrait.jpg`, the Dusk theme's real hero photography. Replace the
+placeholders before launch.
 
 ## Recommended sizes
 
