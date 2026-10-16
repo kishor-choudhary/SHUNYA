@@ -1,0 +1,26 @@
+node_modules
+.next
+out
+build
+dist
+coverage
+
+# Local environment
+.env
+.env.local
+.env*.local
+
+# Content database (contains enquiry submissions) and uploads
+/data/*
+!/data/.gitkeep
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-error.log*
+next-env.d.ts
+tsconfig.tsbuildinfo
+.vercel
