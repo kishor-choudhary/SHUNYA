@@ -1,8 +1,8 @@
 /**
  * SHUNYA — theme registry.
  *
- * The site ships more than one complete look. A theme is a full palette plus
- * the atmosphere and the hero frame that go with it, and exactly one theme is
+ * The site ships four complete looks. A theme is a full palette plus the
+ * atmosphere and the hero frame that go with it, and exactly one theme is
  * active at a time for *every* visitor: the studio picks it in
  * /admin/settings, the choice is stored with the rest of the content, and the
  * root layout renders it onto `<html data-theme="…">` on the server. Nothing
@@ -10,7 +10,7 @@
  * not — always shows the theme the studio published.
  *
  * Where the colours live: `src/app/globals.css` — `@theme` holds the default
- * (Dusk) and one block per theme follows it, each matching
+ * (Triptych) and one block per theme follows it, each matching
  * `html[data-theme="…"]` *and* `[data-theme-preview="…"]`. The second selector
  * is what lets the studio draw a real mini-render of a theme inside the picker
  * without a single colour value being written down twice.
@@ -24,20 +24,22 @@
  * pairing in a palette falls below its contrast floor.
  */
 
-export const THEME_IDS = ["dusk", "moon", "void"] as const;
+export const THEME_IDS = ["triptych", "dusk", "moon", "void"] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
 
-export const DEFAULT_THEME: ThemeId = "dusk";
+export const DEFAULT_THEME: ThemeId = "triptych";
 
 /**
  * The moving element that belongs to a theme's hero.
  *
+ * - `arch`      — three tall arch windows that breathe, with the entrance
+ *                 panel and the template's three-panel composition
  * - `sun`       — the draggable sun (a photograph with a sun in it)
  * - `particles` — drifting embers over a dark frame
  * - `still`     — nothing moves but the film grain
  */
-export type ThemeAtmosphere = "sun" | "particles" | "still";
+export type ThemeAtmosphere = "arch" | "sun" | "particles" | "still";
 
 export interface ThemeHero {
   /** Frame used from `md` up. */
@@ -73,6 +75,21 @@ export interface ThemeDefinition {
 
 export const THEMES: readonly ThemeDefinition[] = [
   {
+    id: "triptych",
+    label: "Triptych",
+    tagline: "Panel black, signal violet, three arches",
+    description:
+      "The template's own language: a near-black gallery wall, electric violet light and three tall arch windows that breathe. Each window is one chapter — sound, space, people — so the home page opens as a work in three panels. An entrance panel counts the page in.",
+    themeColor: "#0c0c0c",
+    atmosphere: "arch",
+    hero: {
+      wide: "/media/hero-triptych.jpg",
+      portrait: "/media/hero-triptych-portrait.jpg",
+      mobilePosition: "50% center",
+      alt: "A dark gallery hall lit by a single violet beam, with faint stars and a floor grid",
+    },
+  },
+  {
     id: "dusk",
     label: "Dusk",
     tagline: "Blue hour, cream stone, gold sun",
@@ -92,7 +109,7 @@ export const THEMES: readonly ThemeDefinition[] = [
     label: "Moon",
     tagline: "Near-black night, one crimson moon",
     description:
-      "The original house look: a crowd under lasers, a crimson moon above them and drifting embers in the air. Coolest and darkest of the three — built for electronic music nights.",
+      "The original house look: a crowd under lasers, a crimson moon above them and drifting embers in the air. Coolest and darkest of the four — built for electronic music nights.",
     themeColor: "#06080d",
     atmosphere: "particles",
     hero: {

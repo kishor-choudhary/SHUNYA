@@ -27,7 +27,7 @@ export default function Services() {
             <Reveal
               key={service.id}
               delay={index * 0.08}
-              className="group hud-frame relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-sm border border-bone/10 md:min-h-[32rem]"
+              className="arch-top group hud-frame relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-sm border border-bone/10 md:min-h-[32rem]"
             >
               <Image
                 src={service.image}

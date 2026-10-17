@@ -154,7 +154,7 @@ export default async function PrivateExperiencesPage() {
             <Reveal
               key={item.id}
               delay={Math.min(index * 0.05, 0.25)}
-              className="group relative isolate flex min-h-[24rem] flex-col justify-end overflow-hidden rounded-sm border border-bone/10"
+              className="arch-top group relative isolate flex min-h-[24rem] flex-col justify-end overflow-hidden rounded-sm border border-bone/10"
             >
               <Image
                 src={item.image}
@@ -245,7 +245,7 @@ export default async function PrivateExperiencesPage() {
               <Reveal
                 key={frame.id}
                 delay={index * 0.05}
-                className={`relative overflow-hidden rounded-sm border border-bone/10 ${
+                className={`arch-top relative overflow-hidden rounded-sm border border-bone/10 ${
                   index === 0 ? "col-span-2 aspect-[4/3] md:aspect-[3/4]" : "aspect-[3/4]"
                 }`}
               >

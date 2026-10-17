@@ -91,20 +91,31 @@ const json = async (response) => {
 };
 
 /**
- * The canvas colour a theme declares in the stylesheet. Dusk is the palette in
- * `@theme`; every other theme is read out of its own `html[data-theme]` block.
- * Used to check that the manifest and the browser chrome follow whichever theme
- * the studio has published, rather than the default.
+ * The canvas colour a theme declares in the stylesheet. The default theme is
+ * the palette in `@theme`; every other theme is read out of its own
+ * `html[data-theme]` block. Used to check that the manifest and the browser
+ * chrome follow whichever theme the studio has published, rather than the
+ * default.
  */
 const stylesheet = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
 
 function canvasFor(theme) {
+  // The attribute must be followed by its own selector list or block — a
+  // scoped override such as `html[data-theme="triptych"] .arch-top { … }`
+  // is not a palette.
+  const published = (stylesheet.match(
+    new RegExp(
+      `html\\[data-theme="${theme}"\\]\\s*(?=[,{])[^{]*\\{([\\s\\S]*?)\\}`,
+    ),
+  ) ?? [])[1];
+  // No published block means this is the default: its values live in @theme,
+  // which runs from the first `@theme` to the first preview block.
   const source =
-    theme === "dusk"
-      ? stylesheet.slice(0, stylesheet.indexOf("[data-theme-preview="))
-      : (stylesheet.match(
-          new RegExp(`html\\[data-theme="${theme}"\\][^{]*\\{([\\s\\S]*?)\\}`),
-        ) ?? [])[1];
+    published ??
+    stylesheet.slice(
+      stylesheet.indexOf("@theme"),
+      stylesheet.indexOf("[data-theme-preview=", stylesheet.indexOf("@theme")),
+    );
   return (source ?? "").match(/--color-void:\s*(#[0-9a-fA-F]{6})/)?.[1];
 }
 

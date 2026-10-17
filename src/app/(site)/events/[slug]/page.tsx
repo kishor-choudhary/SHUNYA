@@ -375,7 +375,7 @@ export default async function EventPage({ params }: { params: Params }) {
           </Reveal>
 
           {/* poster download-ish block */}
-          <Reveal delay={0.14} className="overflow-hidden rounded-sm border border-bone/10">
+          <Reveal delay={0.14} className="arch-top overflow-hidden rounded-sm border border-bone/10">
             <div className="relative aspect-[4/5]">
               <Image
                 src={event.poster}

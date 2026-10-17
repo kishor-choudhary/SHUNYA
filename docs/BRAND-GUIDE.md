@@ -14,21 +14,20 @@ decisions.
   branding — just the word **SHUNYA**, set wide and large. The little "S" you
   see on a phone's home screen is simply the first letter of the wordmark,
   used because a browser tab needs a square image.
-- **The colours depend on the theme.** There are three complete looks and
-  you choose which one is live — see section 2. Out of the box the site wears
-  **Dusk**: a deep blue-black background (the last blue of the sky rather than
-  pure black), cream-white type, and the warm accents of a sunset — gold, amber
-  and bougainvillea crimson. There are two crimsons: a deeper one for blocks,
-  borders and very large headings, and a lighter, pinker one for small text and
-  links, chosen so words stay readable against the dark background.
-- **The sun moves — in the Dusk theme.** On the home page there is a real sun
-  sitting in the sky over the lake. Visitors can drag it — with a finger, a
-  mouse, or the arrow keys once they have tabbed to it — and the whole frame
-  responds: the light drains out of the water, the sky deepens, and the sun's
-  own glow swells. The corner label reads "Drag the sun" until someone does.
-  Nothing else on the page moves by itself, and if a visitor never touches it
-  the photograph looks exactly as it was taken. The **Moon** theme has drifting
-  embers instead, and **Void** has nothing moving at all.
+- **The colours depend on the theme.** There are four complete looks and you
+  choose which one is live — see section 2. Out of the box the site wears
+  **Triptych**: a panel-black gallery wall, warm paper type and electric violet
+  light, with the rare yellow and orange highlight borrowed from the same
+  reference. The violet comes in two strengths: a deeper one for blocks,
+  borders and very large headings, and a lighter, brighter one for small text
+  and links, chosen so words stay readable against the black.
+- **The site opens like a work in three panels — in the Triptych theme.** On
+  the home page, three tall arch windows hold the brand's three chapters:
+  sound, space and people. They breathe slowly, light travels up them, and the
+  page is introduced by a short entrance panel that counts itself in. The
+  **Dusk** theme puts a real sun in the sky over the lake, which visitors can
+  drag; **Moon** has drifting embers instead, and **Void** has nothing moving
+  at all.
 - **Two types of lettering.** Big headings and the brand name are set in a
   heavy, extra-wide sans-serif. Paragraphs of story-telling copy are set in an
   editorial serif (the elegant, book-like one). Small labels, dates, counters
@@ -57,7 +56,7 @@ on a shared computer.
 
 ## 2. Choosing the site's look
 
-The website ships with three complete looks and you can switch between them in
+The website ships with four complete looks and you can switch between them in
 about ten seconds — no developer, no rebuild, nothing to re-upload.
 
 1. Open **`/admin/settings`** (see section 1 if you are not signed in).
@@ -73,12 +72,13 @@ about ten seconds — no developer, no rebuild, nothing to re-upload.
 5. Not happy? Press **Revert preview** to go straight back to the live theme
    without publishing anything.
 
-The three looks:
+The four looks:
 
 | Look | What it is | What moves |
 |---|---|---|
-| **Dusk** *(the default)* | A sunset over the lake. Blue-hour shadows, cream stone, one gold sun. | The sun, which visitors can drag |
-| **Moon** | A crowd under lasers with a crimson moon above them. Darkest and coolest of the three — built for electronic music nights. | Embers drifting across the frame |
+| **Triptych** *(the default)* | Panel black, warm paper type, electric violet light and three tall arch windows. The site's own template language: one work divided into three panels. | The arches breathe, light climbs them, and an entrance panel counts the page in |
+| **Dusk** | A sunset over the lake. Blue-hour shadows, cream stone, one gold sun. | The sun, which visitors can drag |
+| **Moon** | A crowd under lasers with a crimson moon above them. Darkest and coolest of the four — built for electronic music nights. | Embers drifting across the frame |
 | **Void** | Monochrome, no colour anywhere, over a black-and-white hall before the crowd arrives. "Shoonya" means void, and this look takes it literally. | Nothing at all |
 
 Two things worth knowing:

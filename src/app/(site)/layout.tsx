@@ -8,6 +8,7 @@ import Analytics from "@/components/Analytics";
 import { formatEventDate, isPast } from "@/lib/format";
 import { SITE } from "@/lib/site";
 import { getEvents, getSettings } from "@/lib/store";
+import { getTheme } from "@/lib/themes";
 
 /**
  * Public site layout: everything a visitor sees around a page — header,
@@ -47,6 +48,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <SmoothScroll />
       <ScrollProgress />
       <SiteHeader
+        theme={getTheme(settings.theme).id}
         whatsapp={settings.whatsapp}
         instagram={settings.instagram}
         contactEmail={settings.contactEmail}

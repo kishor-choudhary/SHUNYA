@@ -3,12 +3,13 @@
 /* ==========================================================================
    SHUNYA — design system
 
-   Three complete looks ship with the site (see src/lib/themes.ts). The palette
-   below is the default — Dusk. The other themes re-declare the same variable
-   names further down, scoped to `html[data-theme="…"]`, so every utility that
-   reads `var(--color-…)` follows the theme the studio publishes. Nothing is
-   stored in the visitor's browser: the root layout renders the active theme
-   onto <html> on the server, which is why a reload always shows it.
+   Four complete looks ship with the site (see src/lib/themes.ts). The palette
+   below is the default — Triptych. The other themes re-declare the same
+   variable names further down, scoped to `html[data-theme="…"]`, so every
+   utility that reads `var(--color-…)` follows the theme the studio publishes.
+   Nothing is stored in the visitor's browser: the root layout renders the
+   active theme onto <html> on the server, which is why a reload always shows
+   it.
 
    Adding a theme: copy one of the blocks below, change the values, add the
    theme to src/lib/themes.ts, then run `npm run check:themes`. The check fails
@@ -17,31 +18,31 @@
    ========================================================================== */
 
 @theme {
-  /* --- palette (Dusk — the default theme) ------------------------------
-     Warm sunset dusk: a blue hour sky that falls into the final minutes of
-     light, cream stone, and a large gold sun. Sampled from the aerial
-     reference frame — the marina at the top, ember over the water, then
-     cream bougainvillea stone in the foreground.
+  /* --- palette (Triptych — the default theme) --------------------------
+     Panel black, electric signal violet and warm paper. Taken from the
+     template's own palette: a near-black canvas (#0c0c0c), raised graphite
+     panels, bone type, `signal` violet for every accent, `warn` yellow and
+     `heat` orange for the rare highlights.
      Every value below is contrast-checked against --color-void.          */
-  --color-void: #0a1119; /* the deepest blue hour at the top of the frame */
-  --color-ink: #101a24;
-  --color-night: #16222f;
-  --color-charcoal: #1c2a38;
-  --color-graphite: #24344a;
-  --color-smoke: #35455c;
-  --color-ash: #93a3b8; /* 6.5:1 on void */
-  --color-fog: #bcc7d6; /* 11:1 on void */
-  --color-bone: #f4efe6; /* cream stone */
+  --color-void: #0c0c0c; /* the loader's black — the empty panel */
+  --color-ink: #111111;
+  --color-night: #161616;
+  --color-charcoal: #1c1c1c;
+  --color-graphite: #242424;
+  --color-smoke: #343434; /* the template's --color-canvas */
+  --color-ash: #a3a3a3; /* 7.8:1 on void */
+  --color-fog: #d6d0dc; /* 13:1 on void — the template's soft lilac paper */
+  --color-bone: #f8f5ee; /* warm paper */
 
-  --color-ember: #c1272d; /* deep crimson — bougainvillea, fills and borders (3.4:1) */
-  --color-ember-deep: #7a1017;
-  --color-ember-glow: #e8656a; /* 6.1:1 — the only crimson for small text */
-  --color-moon: #e8656a;
-  --color-marina: #648cbb; /* the top of the frame — the last blue */
-  --color-dusk: #8e9fd0; /* cool periwinkle — draft and unpublished states */
-  --color-sky: #b9a292; /* pale haze from the horizon band */
-  --color-gold: #f0a828; /* the sun itself — never used for text */
-  --color-amber: #dd9948; /* warm amber from the lit water (6.8:1) */
+  --color-ember: #af00f1; /* the template's --color-signal (3.8:1 — fills) */
+  --color-ember-deep: #5c0080;
+  --color-ember-glow: #e04bff; /* 6.2:1 — the only violet for small text */
+  --color-moon: #e04bff;
+  --color-marina: #8a8a8a;
+  --color-dusk: #c9b8d8; /* 10.6:1 — draft and unpublished states */
+  --color-sky: #d6d0dc;
+  --color-gold: #fbe948; /* the template's --color-warn — arch light */
+  --color-amber: #ff6a2b; /* the template's --color-heat (6.9:1) */
   /* Label colour for accent-filled controls. Themes whose accent is light
      (Void) set this to near-black instead of white. */
   --color-on-ember: #ffffff;
@@ -65,6 +66,16 @@
   --animate-sun-drift: sun-drift 34s ease-in-out infinite alternate;
   --animate-moon-drift: moon-drift 32s ease-in-out infinite alternate;
   --animate-cue: cue 2.8s ease-in-out infinite;
+  /* The Triptych theme's arches: they breathe, and light keeps travelling up
+     them the way it does in the template's three windows. */
+  --animate-arch-breathe: arch-breathe 18s ease-in-out infinite alternate;
+  --animate-arch-sheen: arch-sheen 9s ease-in-out infinite;
+  --animate-beam-sway: beam-sway 24s ease-in-out infinite alternate;
+
+  /* --- shape ---------------------------------------------------------- */
+  /* The arch: a tall Roman window. Used by the Triptych theme's hero panes,
+     the loader windows and any media panel marked `arch-top`. */
+  --radius-arch: 50% 50% 0 0 / 62% 62% 0 0;
 }
 
 /* ==========================================================================
@@ -84,8 +95,11 @@
    without hard-coding a single colour (see components/admin/ThemePicker.tsx).
    ========================================================================== */
 
-/* --- Dusk — the default: same values as @theme above, so the studio's card
-   for it can be scoped like any other theme. --------------------------------- */
+/* --- Dusk — blue hour, cream stone, gold sun -----------------------------
+   The default palette now lives in @theme above (Triptych), so Dusk declares
+   its palette once here, on a rule that carries both the published and the
+   preview selector — exactly like Moon and Void. --------------------------- */
+html[data-theme="dusk"],
 [data-theme-preview="dusk"] {
   --color-void: #0a1119;
   --color-ink: #101a24;
@@ -106,6 +120,31 @@
   --color-sky: #b9a292;
   --color-gold: #f0a828;
   --color-amber: #dd9948;
+  --color-on-ember: #ffffff;
+}
+
+/* --- Triptych — the default: same values as @theme above, so the studio's
+   card for it can be scoped like any other theme. ------------------------- */
+[data-theme-preview="triptych"] {
+  --color-void: #0c0c0c;
+  --color-ink: #111111;
+  --color-night: #161616;
+  --color-charcoal: #1c1c1c;
+  --color-graphite: #242424;
+  --color-smoke: #343434;
+  --color-ash: #a3a3a3;
+  --color-fog: #d6d0dc;
+  --color-bone: #f8f5ee;
+
+  --color-ember: #af00f1;
+  --color-ember-deep: #5c0080;
+  --color-ember-glow: #e04bff;
+  --color-moon: #e04bff;
+  --color-marina: #8a8a8a;
+  --color-dusk: #c9b8d8;
+  --color-sky: #d6d0dc;
+  --color-gold: #fbe948;
+  --color-amber: #ff6a2b;
   --color-on-ember: #ffffff;
 }
 
@@ -200,6 +239,37 @@ html[data-theme="void"],
   0% { transform: scale(0.92); opacity: 0.55; }
   70% { transform: scale(1.5); opacity: 0; }
   100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* --- Triptych -------------------------------------------------------------
+   The three arches breathe at slightly different phases, so the triptych
+   never reads as one static block; light travels up each window on its own
+   clock, like the template's portal screens. */
+@keyframes arch-breathe {
+  /* Always slightly larger than its frame, so the movement never exposes an
+     edge inside the arch. */
+  from { transform: translate3d(0, 0.9%, 0) scale(1.06); }
+  to { transform: translate3d(0, -0.9%, 0) scale(1.035); }
+}
+@keyframes arch-sheen {
+  0% { transform: translate3d(0, 120%, 0); opacity: 0; }
+  18% { opacity: 0.9; }
+  82% { opacity: 0.9; }
+  100% { transform: translate3d(0, -120%, 0); opacity: 0; }
+}
+@keyframes beam-sway {
+  from { transform: translate3d(-4%, 0, 0) rotate(-1.5deg); opacity: 0.55; }
+  to { transform: translate3d(4%, 0, 0) rotate(1.5deg); opacity: 0.9; }
+}
+/* The loader: the three windows rise, the bars climb, the whole panel lifts
+   away along its own arch radius when the count reaches 100. */
+@keyframes loader-bar {
+  0%, 100% { transform: scaleY(0.25); opacity: 0.35; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+@keyframes loader-mark {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
 }
 
 /* ==========================================================================
@@ -360,6 +430,17 @@ html[data-theme="void"],
   line-height: 0.86;
   text-transform: uppercase;
   user-select: none;
+}
+
+/* The template's headline treatment: sentence case, very tight, wide-bodied —
+   an editorial statement rather than the uppercase SHUNYA wordmark. */
+@utility type-statement {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-transform: none;
 }
 
 @utility eyebrow {
@@ -622,4 +703,236 @@ html[data-theme="void"],
   .cursor-none-desktop input[type="date"],
   .cursor-none-desktop input[type="datetime-local"],
   .cursor-none-desktop textarea { cursor: text; }
+}
+
+/* ==========================================================================
+   Triptych — the three-panel language
+
+   Everything here is drawn from theme tokens, never a fixed colour, so the
+   same arch, sheen and loader work in any palette. The pieces are only
+   rendered by the Triptych atmosphere (see components/home/ArchHero.tsx and
+   components/TriptychLoader.tsx); the classes themselves are theme-neutral.
+   ========================================================================== */
+
+/* One work divided into three panels. In every other theme this is just the
+   card radius, so shared media panels can carry the class permanently and the
+   arch only appears when the Triptych theme is published. */
+.arch-top { border-radius: 4px; }
+
+html[data-theme="triptych"] .arch-top,
+[data-theme-preview="triptych"] .arch-top {
+  border-radius: var(--radius-arch);
+}
+
+/* The HUD corner ticks belong to a rectangle; a panel that has become an arch
+   drops them rather than leaving four marks floating in the curve. */
+html[data-theme="triptych"] .arch-top.hud-frame::before,
+html[data-theme="triptych"] .arch-top.hud-frame::after {
+  display: none;
+}
+
+/* A hero window: a tall arch with a hairline inner frame. The photograph is
+   clipped to the same silhouette, so the panel reads as a doorway rather than
+   a cropped rectangle. */
+.arch-pane {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--radius-arch);
+  border: 1px solid color-mix(in oklab, var(--color-bone) 22%, transparent);
+  background: var(--color-ink);
+  transition:
+    transform 0.9s var(--ease-cinematic),
+    border-color 0.9s var(--ease-cinematic),
+    box-shadow 0.9s var(--ease-cinematic);
+  will-change: transform;
+}
+.arch-pane:hover,
+.arch-pane:focus-within {
+  border-color: color-mix(in oklab, var(--color-ember) 70%, var(--color-bone) 8%);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-ember) 35%, transparent),
+    0 28px 90px -28px color-mix(in oklab, var(--color-ember) 60%, transparent);
+  /* The lift itself is a Framer `whileHover` in ArchHero — the same element
+     already owns `transform` for its entrance, and two owners would fight. */
+}
+.arch-pane::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: 3;
+  border-radius: var(--radius-arch);
+  border: 1px solid color-mix(in oklab, var(--color-bone) 14%, transparent);
+  pointer-events: none;
+}
+
+/* Light travelling up a window — the template's portals are never still. */
+.arch-pane__sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  background: linear-gradient(
+    to top,
+    transparent 0%,
+    color-mix(in oklab, var(--color-bone) 26%, transparent) 44%,
+    transparent 72%
+  );
+  animation: var(--animate-arch-sheen);
+}
+
+/* Hairline panel grid — the template's structural drawing over the canvas. */
+.triptych-grid {
+  background-image:
+    linear-gradient(90deg, color-mix(in oklab, var(--color-bone) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in oklab, var(--color-bone) 5%, transparent) 1px, transparent 1px);
+  background-size: calc(100% / 6) 100%, 100% 33.3333%;
+}
+
+/* The entrance panel — three arch windows, a count, a definition of the name.
+   Everything sits on the theme's own void, so it matches the page it reveals. */
+.triptych-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2.2vw, 1.6rem);
+  overflow: hidden;
+  background: var(--color-void);
+  color: var(--color-bone);
+  transition:
+    transform 1.05s cubic-bezier(0.7, 0, 0.3, 1),
+    border-radius 1.05s cubic-bezier(0.7, 0, 0.3, 1);
+  will-change: transform;
+}
+.triptych-loader.is-exiting {
+  transform: translateY(-110%);
+  border-radius: var(--radius-arch);
+}
+.triptych-loader__backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    75% 42% at 50% 28%,
+    color-mix(in oklab, var(--color-ember) 26%, transparent) 0%,
+    color-mix(in oklab, var(--color-ember-deep) 16%, transparent) 32%,
+    transparent 68%
+  );
+}
+.triptych-loader__windows {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.5rem, 1.5vw, 1.1rem);
+  width: min(88vw, 30rem);
+  height: clamp(8rem, 24vh, 14rem);
+}
+.triptych-loader__window {
+  flex: 1;
+  height: 100%;
+  border-radius: var(--radius-arch);
+  border: 1px solid color-mix(in oklab, var(--color-bone) 12%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-smoke) 70%, var(--color-bone) 6%) 0%,
+    var(--color-charcoal) 52%,
+    color-mix(in oklab, var(--color-void) 92%, var(--color-ember)) 100%
+  );
+  box-shadow: inset 0 0 40px color-mix(in oklab, var(--color-void) 70%, transparent);
+}
+.triptych-loader__window--centre {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-ember) 22%, var(--color-smoke)) 0%,
+    var(--color-charcoal) 56%,
+    var(--color-void) 100%
+  );
+}
+.triptych-loader__bars {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 3.25rem;
+  padding-inline: 18%;
+  opacity: 0.9;
+}
+.triptych-loader__bar {
+  flex: 1;
+  max-width: 8px;
+  height: 100%;
+  transform-origin: bottom;
+  border-radius: 99px;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklab, var(--color-ember) 80%, transparent),
+    color-mix(in oklab, var(--color-bone) 70%, transparent)
+  );
+  animation: loader-bar 1.1s ease-in-out infinite;
+  animation-delay: calc(var(--bar-i) * -0.085s);
+}
+.triptych-loader__mark {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--color-ember-glow);
+  animation: loader-mark 2.6s ease-in-out infinite;
+}
+.triptych-loader__counter {
+  font-family: var(--font-mono);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--color-bone);
+}
+.triptych-loader__definition {
+  max-width: 34rem;
+  padding-inline: 1.5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 1.1vw, 0.68rem);
+  line-height: 1.9;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+}
+.triptych-loader__definition b {
+  color: var(--color-bone);
+  font-weight: 500;
+}
+.triptych-loader__progress {
+  width: min(60vw, 18rem);
+  height: 1px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--color-bone) 14%, transparent);
+}
+.triptych-loader__fill {
+  display: block;
+  height: 100%;
+  background: var(--color-ember-glow);
+  transform-origin: left;
+  transition: transform 0.18s linear;
+}
+
+/* The Triptych pieces are decorative. Under a reduced-motion preference they
+   hold one still, legible frame instead of a neutralised half-animation. */
+@media (prefers-reduced-motion: reduce) {
+  .arch-pane__sheen,
+  .triptych-loader__bar,
+  .triptych-loader__mark {
+    animation: none !important;
+  }
+  .arch-pane__sheen { opacity: 0.16; }
 }
