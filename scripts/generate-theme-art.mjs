@@ -24,8 +24,15 @@ const FRAMES = [
     out: "hero-void.jpg",
     from: "chapter-space.jpg",
     // A touch more contrast after desaturating: with no colour to separate the
-    // floor from the dark, the gradient has to do the work.
-    build: (image) => image.grayscale().linear(1.06, -6),
+    // floor from the dark, the gradient has to do the work. The wide frame is
+    // the hall's centre band — the hero fills a landscape viewport, so the
+    // void keeps the vanishing point and the light shaft and lets the ceiling
+    // and floor extremes go.
+    build: (image) =>
+      image
+        .resize(2400, 1350, { fit: "cover", position: "centre" })
+        .grayscale()
+        .linear(1.06, -6),
     note: "Void theme hero — the hall with the colour taken out",
   },
 ];
@@ -40,10 +47,11 @@ for (const frame of FRAMES) {
     .build(input)
     .jpeg({ quality: 82, mozjpeg: true, progressive: true })
     .toBuffer();
+  const outMeta = await sharp(output).metadata();
 
   await fs.writeFile(target, output);
   console.log(
-    `${frame.out}  ${meta.width}×${meta.height}  ${(output.length / 1024).toFixed(0)} KB  (from ${frame.from})`,
+    `${frame.out}  ${outMeta.width}×${outMeta.height}  ${(output.length / 1024).toFixed(0)} KB  (from ${frame.from} ${meta.width}×${meta.height})`,
   );
   console.log(`  ${frame.note}`);
 }
