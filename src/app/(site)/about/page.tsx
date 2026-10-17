@@ -149,7 +149,7 @@ export default async function AboutPage() {
         </div>
 
         <div className="space-y-6">
-          <Reveal className="relative aspect-[4/5] overflow-hidden rounded-sm border border-bone/10">
+          <Reveal className="arch-top relative aspect-[4/5] overflow-hidden rounded-sm border border-bone/10">
             <Image
               src="/media/chapter-sound.jpg"
               alt="DJ silhouette behind a mixer lit by a single red light"

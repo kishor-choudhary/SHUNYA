@@ -7,16 +7,16 @@
     font-size="72"
     font-weight="800"
     letter-spacing="14"
-    fill="#f3f4f6"
+    fill="#f8f5ee"
   >SHUNYA</text>
-  <rect x="2" y="106" width="512" height="1" fill="#f3f4f6" fill-opacity="0.3"/>
+  <rect x="2" y="106" width="512" height="1" fill="#f8f5ee" fill-opacity="0.3"/>
   <text
     x="2"
     y="132"
     font-family="Inter, Helvetica, Arial, sans-serif"
     font-size="15"
     letter-spacing="6.6"
-    fill="#f3f4f6"
+    fill="#f8f5ee"
     fill-opacity="0.72"
   >FROM SHOONYA, EVERYTHING BEGINS.</text>
 </svg>

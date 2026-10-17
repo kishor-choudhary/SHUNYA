@@ -61,7 +61,7 @@ export default function BrandIntro() {
 
         {/* Visual + principle list */}
         <div className="space-y-8">
-          <Reveal className="hud-frame relative aspect-[4/3] overflow-hidden rounded-sm border border-bone/10">
+          <Reveal className="arch-top hud-frame relative aspect-[4/3] overflow-hidden rounded-sm border border-bone/10">
             <Image
               src="/media/chapter-space.jpg"
               alt="Empty industrial warehouse lit by a suspended lighting truss before doors"

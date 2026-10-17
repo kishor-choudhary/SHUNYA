@@ -42,7 +42,7 @@ export default function GalleryStrip({ items }: { items: GalleryItem[] }) {
             <Reveal
               key={item.id}
               delay={Math.min(index * 0.05, 0.3)}
-              className={`group relative shrink-0 snap-start overflow-hidden rounded-sm border border-bone/10 ${
+              className={`arch-top group relative shrink-0 snap-start overflow-hidden rounded-sm border border-bone/10 ${
                 index % 3 === 1
                   ? "aspect-[3/4] w-[76vw] sm:w-[42vw] lg:w-[26vw]"
                   : "aspect-[4/3] w-[86vw] sm:w-[52vw] lg:w-[34vw]"

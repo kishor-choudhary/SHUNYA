@@ -87,7 +87,7 @@ export default function ThemePicker({ activeTheme }: { activeTheme: ThemeId }) {
 
       <fieldset className="mt-6">
         <legend className="sr-only">Choose the published theme</legend>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {THEMES.map((theme) => {
             const selected = preview === theme.id;
             const live = saved === theme.id;

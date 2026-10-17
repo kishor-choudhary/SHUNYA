@@ -96,12 +96,23 @@ for (const id of css.matchAll(/\[data-theme-preview="([a-z-]+)"\]/g)) {
   previewSources.set(id[1], true);
 }
 const publishedSources = new Map();
-for (const id of css.matchAll(/html\[data-theme="([a-z-]+)"\]/g)) {
+// A palette rule starts with the attribute followed by its own `{` (or a
+// second selector). Scoped overrides such as
+// `html[data-theme="triptych"] .arch-top { … }` must not be mistaken for one.
+for (const id of css.matchAll(/html\[data-theme="([a-z-]+)"\]\s*[,{]/g)) {
   publishedSources.set(id[1], true);
 }
 
+/*
+ * Which theme `@theme` holds. It is read from the registry so the check can
+ * never drift when the studio launches on a different look — every other
+ * theme is read out of its own published block.
+ */
+const defaultId =
+  registry.match(/DEFAULT_THEME:\s*ThemeId\s*=\s*"([a-z-]+)"/)?.[1] ?? "dusk";
+
 /** Palettes: default from @theme, the rest from their published block. */
-const palettes = new Map([["dusk", defaultPalette]]);
+const palettes = new Map([[defaultId, defaultPalette]]);
 for (const id of publishedSources.keys()) {
   const block = blockAfter(css, new RegExp(`html\\[data-theme="${id}"\\]`));
   if (block) palettes.set(id, paletteOf(block));
@@ -181,18 +192,22 @@ check(
 );
 check(
   "the default theme is the one @theme declares",
-  entries.some((entry) => entry.id === "dusk") && palettes.has("dusk"),
+  entries.some((entry) => entry.id === defaultId) && palettes.has(defaultId),
+  `default ${defaultId}`,
 );
 
 /*
  * Every other theme declares its palette once, on a rule that carries both the
- * published and the preview selector. Dusk is the exception — @theme holds the
- * default values and a separate preview block repeats them — so that pair is
+ * published and the preview selector. The default is the exception — @theme
+ * holds its values and a separate preview block repeats them — so that pair is
  * compared here. It is the one place a colour is written down twice, and this
  * is what stops the two copies drifting apart.
  */
 {
-  const previewBlock = blockAfter(css, /\[data-theme-preview="dusk"\]/);
+  const previewBlock = blockAfter(
+    css,
+    new RegExp(`\\[data-theme-preview="${defaultId}"\\]`),
+  );
   const previewPalette = previewBlock ? paletteOf(previewBlock) : new Map();
   const differing = [...defaultPalette.entries()]
     .filter(([token, value]) => previewPalette.get(token) !== value)
@@ -232,7 +247,7 @@ const TEXT_LADDER = [
   ["amber", 4.5],
   ["ember-glow", 4.5],
 ];
-const KNOWN_ATMOSPHERES = ["sun", "particles", "still"];
+const KNOWN_ATMOSPHERES = ["arch", "sun", "particles", "still"];
 
 const expectedTokens = [...defaultPalette.keys()];
 

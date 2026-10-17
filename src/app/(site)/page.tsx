@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import ArchHero from "@/components/home/ArchHero";
 import BrandIntro from "@/components/home/BrandIntro";
 import Chapters from "@/components/home/Chapters";
 import EnquiryTeaser from "@/components/home/EnquiryTeaser";
@@ -39,12 +40,23 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero
-        nextEvent={teaser}
-        frameCredit={settings.heroVideoCredit}
-        frameUrl={settings.heroVideoUrl}
-        theme={theme}
-      />
+      {/* The hero belongs to the theme: Triptych opens on its three arch
+          windows, every other theme on the full-bleed frame in Hero.tsx. */}
+      {theme.atmosphere === "arch" ? (
+        <ArchHero
+          nextEvent={teaser}
+          frameCredit={settings.heroVideoCredit}
+          frameUrl={settings.heroVideoUrl}
+          theme={theme}
+        />
+      ) : (
+        <Hero
+          nextEvent={teaser}
+          frameCredit={settings.heroVideoCredit}
+          frameUrl={settings.heroVideoUrl}
+          theme={theme}
+        />
+      )}
 
       {/* Transition band between the hero film and the story. */}
       <MarqueeWords

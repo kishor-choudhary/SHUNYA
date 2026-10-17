@@ -4,8 +4,8 @@
  *
  *   node scripts/generate-icons.mjs
  *
- * Draws the SHUNYA app icon: a bone-white "S" letterform on the blue-black
- * blue hour canvas, with a warm sun in place of the counters. The brand is
+ * Draws the SHUNYA app icon: a bone-white "S" letterform on the panel-black
+ * canvas of the default Triptych theme. The brand is
  * type-only, so the icon is a letterform taken from the
  * wordmark rather than a separate emblem — and
  * writes it at the sizes iOS, Android and the web manifest expect. Run this
@@ -79,8 +79,8 @@ function encodePng(width, height, rgba) {
 /*  Brand mark                                                                 */
 /* -------------------------------------------------------------------------- */
 
-const VOID = [0x0a, 0x11, 0x19];
-const BONE = [0xf4, 0xef, 0xe6];
+const VOID = [0x0c, 0x0c, 0x0c];
+const BONE = [0xf8, 0xf5, 0xee];
 
 const clamp01 = (value) => (value < 0 ? 0 : value > 1 ? 1 : value);
 
@@ -155,7 +155,7 @@ function renderIcon(size, { padding = 0.1 } = {}) {
 
   for (let y = 0; y < size; y += 1) {
     for (let x = 0; x < size; x += 1) {
-      // Background: blue-black canvas.
+      // Background: the Triptych theme’s panel black.
       let colour = VOID.slice();
 
       // Distance to the letterform's centreline drives the coverage.

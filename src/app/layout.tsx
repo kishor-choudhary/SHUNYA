@@ -8,6 +8,7 @@ import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
 
 import Atmosphere from "@/components/Atmosphere";
+import TriptychLoader from "@/components/TriptychLoader";
 import { SITE } from "@/lib/site";
 import { getSettings } from "@/lib/store";
 import { getTheme } from "@/lib/themes";
@@ -93,9 +94,10 @@ export async function generateViewport(): Promise<Viewport> {
  */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { theme } = await getSettings();
+  const activeTheme = getTheme(theme);
 
   return (
-    <html lang="en" data-theme={getTheme(theme).id} suppressHydrationWarning>
+    <html lang="en" data-theme={activeTheme.id} suppressHydrationWarning>
       <head>
         {/*
           Motion is a progressive enhancement. Without JavaScript, Framer's
@@ -112,6 +114,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-dvh bg-void text-bone antialiased">
         {children}
         <Atmosphere />
+        {/* The Triptych theme's entrance panel belongs to that atmosphere only.
+            It is client-rendered, once per session, and skips itself entirely
+            for reduced-motion visitors. */}
+        {activeTheme.atmosphere === "arch" ? <TriptychLoader /> : null}
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { DEFAULT_WHATSAPP_MESSAGE, NAV_LINKS, whatsappLink } from "@/lib/site";
+import type { ThemeId } from "@/lib/themes";
 
 interface SiteHeaderProps {
   whatsapp: string;
@@ -14,6 +15,8 @@ interface SiteHeaderProps {
   contactPhone: string;
   /** Confirmed upcoming event, shown inside the index panel. */
   nextEvent: { title: string; dateLabel: string; href: string } | null;
+  /** The published theme — Triptych gets the template's letter-flip wordmark. */
+  theme: ThemeId;
 }
 
 const PANEL_EASE = [0.16, 1, 0.3, 1] as const;
@@ -24,6 +27,7 @@ export default function SiteHeader({
   contactEmail,
   contactPhone,
   nextEvent,
+  theme,
 }: SiteHeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -98,15 +102,38 @@ export default function SiteHeader({
           }`}
         >
           <div className="shell flex h-[68px] items-center justify-between gap-6 md:h-[76px]">
-            {/* Wordmark — type only, no mark. */}
+            {/* Wordmark — type only, no mark. Under Triptych each letter is
+                a mask that flips to the signal violet on hover, as in the
+                template's masthead. */}
             <Link
               href="/"
               className="group flex items-baseline gap-2.5"
               aria-label="SHUNYA — home"
             >
-              <span className="type-display text-[1.16rem] leading-none tracking-[0.34em] text-bone transition-colors duration-500 group-hover:text-ember-glow">
-                SHUNYA
-              </span>
+              {theme === "triptych" ? (
+                <span
+                  aria-hidden="true"
+                  className="flex font-mono text-[1.02rem] font-medium uppercase tracking-[0.34em] text-bone transition-colors duration-500 group-hover:text-ember-glow md:text-[1.12rem]"
+                >
+                  {"SHUNYA".split("").map((letter, index) => (
+                    <span
+                      key={`${letter}-${index}`}
+                      className="relative inline-block h-[1.22em] w-[0.74em] overflow-hidden"
+                    >
+                      <span className="absolute inset-0 grid place-items-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                        {letter}
+                      </span>
+                      <span className="absolute inset-0 grid translate-y-full place-items-center text-ember-glow transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0">
+                        {letter}
+                      </span>
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                <span className="type-display text-[1.16rem] leading-none tracking-[0.34em] text-bone transition-colors duration-500 group-hover:text-ember-glow">
+                  SHUNYA
+                </span>
+              )}
               <span className="hidden font-serif text-[0.86rem] italic leading-none text-ash transition-colors duration-500 group-hover:text-fog sm:inline">
                 from Shoonya
               </span>

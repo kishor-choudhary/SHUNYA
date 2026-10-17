@@ -71,7 +71,7 @@ export default function Chapters({ chapters }: { chapters: Chapter[] }) {
         {/* Sticky poster panel (desktop) */}
         <div className="hidden lg:block">
           <div className="sticky top-28">
-            <div className="hud-frame relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-bone/10 bg-ink">
+            <div className="arch-top hud-frame relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-bone/10 bg-ink">
               {chapters.map((chapter, index) => (
                 <motion.div
                   key={chapter.id}
